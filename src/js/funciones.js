@@ -4,6 +4,7 @@ import {listaTarea} from '../index.js'
 //Referencias al HTML
 const divTareaLista = document.querySelector('.todo-list');
 const txtInput = document.querySelector('.new-todo');
+const btnBorrar = document.querySelector('.clear-completed')
 
 export const crearTareaHtml = (tarea)=>{
     const htmlTarea = `
@@ -43,6 +44,23 @@ divTareaLista.addEventListener('click',(evento)=>{
     if(nombreElemento.includes('input')){
         listaTarea.marcarCompletado(tareaId);
         tareaElemento.classList.add('completed')
+    }else if(nombreElemento.includes('button')){
+        listaTarea.eliminarTarea(tareaId);
+        divTareaLista.removeChild(tareaElemento);
+
     }
     //console.log(tareaElemento)
+})
+
+btnBorrar.addEventListener('click',()=>{
+    listaTarea.eliminarCompletados();
+    console.log(listaTarea)
+
+    for(let i=divTareaLista.children.length - 1; i>=0; i--){
+        const elemento = divTareaLista.children[i];
+        //console.log(elemento)
+        if(elemento.classList.contains('completed')){
+            divTareaLista.removeChild(elemento)
+        }
+    }
 })
