@@ -1,3 +1,5 @@
+import {Tarea} from './tareas.class'
+
 export class TareaLista{
     constructor(){
         //this.tareas = [];
@@ -25,7 +27,7 @@ export class TareaLista{
         this.guardarLocalStorage();
     }
     guardarLocalStorage(){
-        localStorage.setItem('Tarea',JSON.stringify(this.tareas))
+        localStorage.setItem('tarea',JSON.stringify(this.tareas))
     }
     cargarLocalStorage(){
         // if(localStorage.getItem('tarea')){
@@ -35,5 +37,6 @@ export class TareaLista{
         //     this.tareas = [];
         // }
         this.tareas = (localStorage.getItem('tarea')) ? JSON.parse(localStorage.getItem('tarea')) : [];
+        this.tareas = this.tareas.map(obj => Tarea.fromJson(obj));
     }
 }
